@@ -1,0 +1,23 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 50px;
+    margin-left: 50px;
+
+
+}
+
+.container div {
+    gap: 30px;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    width: 90%;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
+    padding: 10px;
+
+
+}

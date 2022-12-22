@@ -1,0 +1,22 @@
+li {
+    list-style: none;
+    font-size: 27px;
+    font-weight: bold;
+    color: rgb(18, 18, 84);
+}
+
+.search {
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.nav {
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    justify-content: space-evenly;
+    align-items: center;
+   
+}
