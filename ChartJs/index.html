@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chart Js</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      .chart1 {
+        border: 1px solid red;
+        width: 50vw;
+        margin: auto;
+        margin-top: 10%;
+      }
+
+      .chart2 {
+        border: 1px solid red;
+        width: 50vw;
+        margin: auto;
+        margin-top: 10%;
+      }
+
+      .input-section {
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="input-section">
+      <label for="">Enter month :</label>
+      <input type="text" id="month" placeholder="month" />
+      <label for="">Enter performance :</label>
+      <input type="text" id="performance" placeholder="performance" />
+      <label for="">Enter attendance :</label>
+      <input type="text" id="attendance" placeholder="attendance" />
+
+      <button id="btn">ADD NEW DATA</button>
+      <button id="removebtn">REMOVE DATA</button>
+    </div>
+    <div class="chart1">
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <div class="chart2">
+      <canvas id="myChart2"></canvas>
+    </div>
+  </body>
+</html>
+
+<script>
+  let ctx = document.getElementById("myChart");
+
+  let removebtn = document.getElementById("removebtn");
+  removebtn.addEventListener("click", function () {
+    removeData(chart);
+  });
+
+  let chart = new Chart(ctx, {
+    type: "Scatter",
+    data: {
+      labels: ["January", "February", "March", "April", "May", "June"],
+      datasets: [
+        {
+          type: "bar",
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+        {
+          type: "bar",
+          label: "# of people",
+          data: [12, 19, 35, 50, 29, 37],
+          borderWidth: 1,
+          backgroundColor: ["rgb(255, 99, 132)"],
+        },
+
+        {
+          type: "line",
+          label: "# of shirts",
+          data: [32, 29, 45, 40, 39, 37],
+          borderWidth: 1,
+          backgroundColor: ["red"],
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  console.log(chart.data.labels);
+
+  let btn = document.getElementById("btn");
+
+  btn.addEventListener("click", () => {
+    let month = document.getElementById("month").value;
+    let performance = document.getElementById("performance").value;
+    let attendance = document.getElementById("attendance").value;
+    let payload = { month, performance, attendance };
+    console.log(payload);
+    month = "";
+    performance = "";
+    attendance = "";
+    addData(chart, payload);
+  });
+
+  function addData(chart, { month, performance, attendance }) {
+    console.log("inside addData");
+    chart.data.labels.push(month);
+    chart.data.datasets[0].data.push(attendance);
+    chart.data.datasets[1].data.push(performance);
+    chart.update();
+  }
+
+  function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+      dataset.data.pop();
+    });
+    chart.update();
+  }
+
+  const data = {
+    labels: ["Red", "Blue", "Yellow"],
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [300, 50, 100],
+        backgroundColor: [
+          "rgb(255, 99, 132)",
+          "rgb(54, 162, 235)",
+          "rgb(255, 205, 86)",
+        ],
+        hoverOffset: 10,
+      },
+    ],
+  };
+
+  const config = {
+    type: "doughnut",
+    data: data,
+  };
+
+  let ctx2 = document.getElementById("myChart2");
+
+  const data2 = {
+    labels: [
+      "Eating",
+      "Drinking",
+      "Sleeping",
+      "Designing",
+      "Coding",
+      "Cycling",
+      "Running",
+    ],
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [65, 59, 90, 81, 56, 55, 40],
+        fill: true,
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgb(255, 99, 132)",
+        pointBackgroundColor: "rgb(255, 99, 132)",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgb(255, 99, 132)",
+      },
+      {
+        label: "My Second Dataset",
+        data: [28, 48, 40, 19, 96, 27, 100],
+        fill: true,
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgb(54, 162, 235)",
+        pointBackgroundColor: "rgb(54, 162, 235)",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgb(54, 162, 235)",
+      },
+    ],
+  };
+
+  const config2 = {
+    type: "polarArea",
+    data: data2,
+    options: {
+      elements: {
+        line: {
+          borderWidth: 3,
+        },
+      },
+    },
+  };
+
+  let chart2 = new Chart(ctx2, config2);
+
+  console.log(chart2.reset());
+
+  window.addEventListener("beforeprint", () => {
+    alert("my name is beforepriny");
+  });
+  window.addEventListener("afterprint", () => {
+    alert("my name is afterprint");
+  });
+</script>
